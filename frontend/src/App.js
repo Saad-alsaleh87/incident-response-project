@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { AlertTriangle, Activity, Database, ShoppingCart, Settings, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Activity, Database, ShoppingCart, Shield, RefreshCw, Sun, Moon } from 'lucide-react';
 import useMetrics from './hooks/useMetrics'; // Fixed import
 import MetricsDashboard from './components/MetricsDashboard';
 import IncidentControls from './components/IncidentControls';
 import ProductManager from './components/ProductManager';
 import OrderManager from './components/OrderManager';
+import { useTheme } from './contexts/ThemeContext';
 import './App.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const { metrics, isConnected, triggerIncident } = useMetrics(); // Fixed hook usage
+  const { isDark, toggleTheme } = useTheme();
 
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: Activity },
@@ -38,7 +40,7 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <h1 className="app-title">
-            <Settings className="title-icon" />
+            <Shield className="title-icon" />
             Incident Response Dashboard
           </h1>
           <div className="header-actions">
@@ -48,6 +50,13 @@ function App() {
             >
               <RefreshCw size={16} />
               Refresh
+            </button>
+            <button 
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
             <div className="status-indicator">
               <div className={`status-dot ${isConnected ? 'healthy' : 'error'}`}></div>

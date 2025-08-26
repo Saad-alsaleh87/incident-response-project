@@ -108,33 +108,36 @@ const ProductManager = () => {
     });
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-800">Product Manager</h2>
+    <div className="card">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Product Manager</h2>
+          <p className="text-gray-600">Manage your product catalog and inventory</p>
+        </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors"
+          className="btn btn-primary"
         >
           + Add Product
         </button>
       </div>
 
       {/* Search and Sort Controls */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
+      <div className="flex flex-col md:flex-row gap-6 mb-8">
         <div className="flex-1">
           <input
             type="text"
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm"
           />
         </div>
         <div>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm"
           >
             <option value="name">Sort by Name</option>
             <option value="category">Sort by Category</option>
@@ -146,50 +149,50 @@ const ProductManager = () => {
 
       {/* Products Table */}
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-              <th className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">Category</th>
-              <th className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">Price</th>
-              <th className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">Stock</th>
-              <th className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">Status</th>
-              <th className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">Actions</th>
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gradient-to-r from-purple-50 to-indigo-50">
+              <th className="px-6 py-4 text-left font-semibold text-gray-700 border-b border-gray-200">Name</th>
+              <th className="px-6 py-4 text-left font-semibold text-gray-700 border-b border-gray-200">Category</th>
+              <th className="px-6 py-4 text-left font-semibold text-gray-700 border-b border-gray-200">Price</th>
+              <th className="px-6 py-4 text-left font-semibold text-gray-700 border-b border-gray-200">Stock</th>
+              <th className="px-6 py-4 text-left font-semibold text-gray-700 border-b border-gray-200">Status</th>
+              <th className="px-6 py-4 text-left font-semibold text-gray-700 border-b border-gray-200">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredAndSortedProducts.map((product) => (
-              <tr key={product.id} className="hover:bg-gray-50">
-                <td className="border border-gray-200 px-4 py-3 font-medium">{product.name}</td>
-                <td className="border border-gray-200 px-4 py-3">{product.category}</td>
-                <td className="border border-gray-200 px-4 py-3">${product.price.toFixed(2)}</td>
-                <td className="border border-gray-200 px-4 py-3">
-                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    product.stock < 10 ? 'bg-red-100 text-red-800' : 
-                    product.stock < 25 ? 'bg-yellow-100 text-yellow-800' : 
-                    'bg-green-100 text-green-800'
+              <tr key={product.id} className="hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 transition-all duration-300">
+                <td className="px-6 py-4 font-medium text-gray-800 border-b border-gray-100">{product.name}</td>
+                <td className="px-6 py-4 text-gray-600 border-b border-gray-100">{product.category}</td>
+                <td className="px-6 py-4 text-gray-800 font-semibold border-b border-gray-100">${product.price.toFixed(2)}</td>
+                <td className="px-6 py-4 border-b border-gray-100">
+                  <span className={`px-3 py-2 rounded-full text-sm font-semibold ${
+                    product.stock < 10 ? 'bg-red-100 text-red-800 border border-red-200' : 
+                    product.stock < 25 ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' : 
+                    'bg-green-100 text-green-800 border border-green-200'
                   }`}>
                     {product.stock}
                   </span>
                 </td>
-                <td className="border border-gray-200 px-4 py-3">
-                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    product.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                <td className="px-6 py-4 border-b border-gray-100">
+                  <span className={`px-3 py-2 rounded-full text-sm font-semibold ${
+                    product.status === 'active' ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-gray-100 text-gray-800 border border-gray-200'
                   }`}>
                     {product.status}
                   </span>
                 </td>
-                <td className="border border-gray-200 px-4 py-3">
-                  <div className="flex space-x-2">
+                <td className="px-6 py-4 border-b border-gray-100">
+                  <div className="flex space-x-3">
                     <button
                       onClick={() => handleEdit(product)}
-                      className="px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600 transition-colors"
+                      className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-sm rounded-2xl hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(product.id)}
-                      className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors"
+                      className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm rounded-2xl hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       Delete
                     </button>
@@ -201,48 +204,49 @@ const ProductManager = () => {
         </table>
         
         {filteredAndSortedProducts.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
-            No products found matching your search criteria.
+          <div className="text-center py-12 text-gray-500">
+            <div className="text-6xl mb-4">📦</div>
+            <p className="text-lg">No products found matching your search criteria.</p>
           </div>
         )}
       </div>
 
       {/* Product Form Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-            <h3 className="text-lg font-bold text-gray-800 mb-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-8 w-full max-w-md mx-4 shadow-2xl border border-gray-100">
+            <h3 className="text-xl font-bold text-gray-800 mb-6">
               {editingProduct ? 'Edit Product' : 'Add New Product'}
             </h3>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Name</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
                 <input
                   type="text"
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
                 />
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Price</label>
                   <input
                     type="number"
                     name="price"
@@ -250,58 +254,58 @@ const ProductManager = () => {
                     onChange={handleInputChange}
                     step="0.01"
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Stock</label>
                   <input
                     type="number"
                     name="stock"
                     value={formData.stock}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
                   />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Description</label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
                   rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
                 <select
                   name="status"
                   value={formData.status}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                 </select>
               </div>
               
-              <div className="flex space-x-3 pt-4">
+              <div className="flex space-x-4 pt-6">
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition-colors"
+                  className="flex-1 btn btn-primary"
                 >
                   {editingProduct ? 'Update Product' : 'Add Product'}
                 </button>
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="flex-1 px-4 py-2 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-600 transition-colors"
+                  className="flex-1 px-4 py-3 bg-gray-500 text-white font-semibold rounded-2xl hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   Cancel
                 </button>
